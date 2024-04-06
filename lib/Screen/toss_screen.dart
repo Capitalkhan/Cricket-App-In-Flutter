@@ -20,22 +20,22 @@ class _TossScreenState extends State<TossScreen> {
 
   void randomNum() {
     num = Random().nextInt(100);
-    Provider.of<Teams>(context, listen: false).update("bat",num);
+    Provider.of<TeamsModel>(context, listen: false).update("bat",num);
 
     setState(() {
       if (num! % 2 == 0) {
         toss =
-            "${Provider.of<Teams>(context, listen: false).info["team1"].toString()} Win The Toss";
+            "${Provider.of<TeamsModel>(context, listen: false).info["team1"].toString()} Win The Toss";
       } else {
         toss =
-            "${Provider.of<Teams>(context, listen: false).info["team2"].toString()} Win The Toss";
+            "${Provider.of<TeamsModel>(context, listen: false).info["team2"].toString()} Win The Toss";
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final match = Provider.of<Teams>(context).info;
+    final match = Provider.of<TeamsModel>(context).info;
     return Scaffold(
       appBar: AppBar(
         title: Center(

@@ -21,7 +21,7 @@ class _PlayCardState extends State<PlayCard> {
 
   @override
   Widget build(BuildContext context) {
-    final balling = Provider.of<Teams>(context, listen: false).ballingTracker;
+    final balling = Provider.of<TeamsModel>(context, listen: false).ballingTracker;
 
     // setMethod();
     return Container(

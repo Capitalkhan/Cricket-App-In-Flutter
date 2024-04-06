@@ -2,12 +2,14 @@ import 'package:add_drop_product/Screen/play_screen.dart';
 import 'package:add_drop_product/provider/team.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import './Screen/team_select_screen.dart';
 import './Screen/toss_screen.dart';
+import 'core/store.dart';
 import 'provider/team.dart';
-void main(){
-  runApp(MyApp());
+void main() {
+  runApp(VxState(store: MyStore(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,19 +17,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MaterialApp(
 
-      providers: [
-        ChangeNotifierProvider(create: (ctx) => Teams()),
-      ],
-      child: MaterialApp(
-
-        routes: {
-          '/': (ctx) => TeamSelection(),
-          TossScreen.route: (ctx) => TossScreen(),
-          PlayScreen.route: (ctx) => PlayScreen(),
-        },
-      ),
+      routes: {
+        '/': (ctx) => TeamSelection(),
+        TossScreen.route: (ctx) => TossScreen(),
+        PlayScreen.route: (ctx) => PlayScreen(),
+      },
     );
   }
 }

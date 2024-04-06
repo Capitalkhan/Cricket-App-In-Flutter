@@ -21,8 +21,8 @@ class _TeamSelectionState extends State<TeamSelection> {
 
   void onSaved(){
 
-    Provider.of<Teams>(context,listen: false).update("team1",_team1Controller.text);
-    Provider.of<Teams>(context,listen: false).update("team2",_team2Controller.text);
+    Provider.of<TeamsModel>(context,listen: false).update("team1",_team1Controller.text);
+    Provider.of<TeamsModel>(context,listen: false).update("team2",_team2Controller.text);
 
     Navigator.of(context).pushNamed(TossScreen.route);
 
@@ -31,7 +31,7 @@ class _TeamSelectionState extends State<TeamSelection> {
 
   @override
   Widget build(BuildContext context) {
-    final match = Provider.of<Teams>(context);
+    final match = Provider.of<TeamsModel>(context);
 
     return Scaffold(
       appBar: AppBar(
