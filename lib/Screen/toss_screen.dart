@@ -116,6 +116,7 @@ class TossScreen extends StatelessWidget {
                 height: 20,
               ),
               ElevatedButton(onPressed: () {
+                print("haloo");
                 Navigator.of(context).pushNamed(PlayScreen.route);
               }, child: Text("Proceed"))
             ],
