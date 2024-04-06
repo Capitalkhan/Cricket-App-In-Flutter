@@ -56,7 +56,7 @@ class UpdateMutation extends VxMutation<MyStore> {
   }
 
 }
-class UpdateBall extends VxMutation<MyStore> {
+/*class UpdateBall extends VxMutation<MyStore> {
 
   final String key;
   final dynamic val;
@@ -68,7 +68,7 @@ class UpdateBall extends VxMutation<MyStore> {
     store?.teams.ballingTracker.update(key, (value) => value = val);
   }
 
-}
+}*/
 class AddTotalMutation extends VxMutation<MyStore> {
 
   final int num;

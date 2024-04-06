@@ -1,7 +1,9 @@
 import 'package:add_drop_product/Screen/toss_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:velocity_x/velocity_x.dart';
 
+import '../core/store.dart';
 import '../provider/team.dart';
 
 class TeamSelection extends StatefulWidget {
@@ -21,8 +23,9 @@ class _TeamSelectionState extends State<TeamSelection> {
 
   void onSaved(){
 
-    Provider.of<TeamsModel>(context,listen: false).update("team1",_team1Controller.text);
-    Provider.of<TeamsModel>(context,listen: false).update("team2",_team2Controller.text);
+    UpdateMutation("team1",_team1Controller.text);
+    UpdateMutation("team2",_team2Controller.text);
+
 
     Navigator.of(context).pushNamed(TossScreen.route);
 
@@ -31,7 +34,7 @@ class _TeamSelectionState extends State<TeamSelection> {
 
   @override
   Widget build(BuildContext context) {
-    final match = Provider.of<TeamsModel>(context);
+    final TeamsModel teams = (VxState.store as MyStore).teams;
 
     return Scaffold(
       appBar: AppBar(
@@ -48,7 +51,7 @@ class _TeamSelectionState extends State<TeamSelection> {
                 children: [
                   InkWell(
                     onTap: () {
-                      match.update("over",1);
+                      UpdateMutation("over",1);
                       _cardColor1 =
                           _cardColor1 == Colors.blue ? Colors.white : Colors.blue;
                       setState(() {});
@@ -71,7 +74,7 @@ class _TeamSelectionState extends State<TeamSelection> {
                   ),
                   InkWell(
                     onTap: () {
-                      match.update("over",2);
+                      UpdateMutation("over",2);
                       _cardColor2 =
                           _cardColor2 == Colors.blue ? Colors.white : Colors.blue;
                       setState(() {});

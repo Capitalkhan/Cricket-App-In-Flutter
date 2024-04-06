@@ -9,50 +9,17 @@ import 'package:velocity_x/velocity_x.dart';
 import '../provider/team.dart';
 import '../widget/play_card.dart';
 
-class PlayScreen  {
+class PlayScreen extends StatelessWidget {
   static final route = './play_screen';
 
   double over = 0;
   int out = 0;
 
-  String perBall = "hallo";
 
-  void activity() async {
-    int num = Random().nextInt(9);
-
-    if (num > 0 && num <= 4 || num == 6) {
-      perBall = "${num}";
-      UpdateMutation("${num}", num);
-      AddTotalMutation(num);
-      // Provider.of<TeamsModel>(context, listen: false).updateBalling("${num}", num);
-      // Provider.of<TeamsModel>(context, listen: false).plusTotal(num);
-    } else if (num == 0) {
-      perBall = "bit";
-      UpdateMutation("bit", "dart Ball");
-      // Provider.of<TeamsModel>(context, listen: false).updateBalling("bit", "dart Ball");
-    } else if (num == 5) {
-      perBall = "noBall";
-      UpdateMutation("noBall", "No Ball");
-      // Provider.of<TeamsModel>(context, listen: false)
-      //     .updateBalling("noBall", "No Ball");
-    } else if (num == 7) {
-      perBall = "wide";
-      UpdateMutation("wide", "Wide Ball");
-      AddTotalMutation(1);
-      // Provider.of<TeamsModel>(context, listen: false)
-      //     .updateBalling("wide", "Wide Ball");
-      // Provider.of<TeamsModel>(context, listen: false).plusTotal(1);
-    } else if (num == 8) {
-      print("out");
-    }
-
-    // setState(() {});
-
-  }
 
   @override
   Widget build(BuildContext context) {
-    final match = Provider.of<TeamsModel>(context, listen: false).info;
+    final TeamsModel teams = (VxState.store as MyStore).teams;
     return Scaffold(
       appBar: AppBar(
         title: Center(
@@ -61,10 +28,12 @@ class PlayScreen  {
       ),
       body: Column(
         children: [
-          match["bat"] % 2 == 0
-              ? Text("${match["team1"]} Batting")
-              : Text("${match["team2"]} Batting"),
-
+          teams.info["bat"] % 2 == 0
+              ? Text("${teams.info['team1']} Batting")
+              : Text("${teams.info["team2"]} Batting"),
+          VxBuilder(
+              mutations: {AddTotalMutation},
+              builder:(context,__,_) => MatchTitleBar(overs: over,out: out,)),
           SizedBox(
             height: 20,
           ),
@@ -80,7 +49,7 @@ class PlayScreen  {
                   crossAxisSpacing: 7,
                   childAspectRatio: 1,),
               itemBuilder: (ctx,index){
-                return PlayCard(perBall);
+                return PlayCard();
               },
             ),
           ),
@@ -92,6 +61,9 @@ class PlayScreen  {
 
 class MatchTitleBar extends StatelessWidget {
   final double overs;
+  final int out;
+
+  const MatchTitleBar({super.key, required this.overs, required this.out});
 
   @override
   Widget build(BuildContext context) {
@@ -100,8 +72,8 @@ class MatchTitleBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Text("Match Status : ${hittingBall.info["total"].toString()} / ${out}"),
-        Text("overs ${over}")
+        Text("overs ${overs}")
       ],
-    ),
+    );
   }
 }
