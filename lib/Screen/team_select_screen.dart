@@ -1,6 +1,5 @@
 import 'package:add_drop_product/Screen/toss_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../core/store.dart';
@@ -20,17 +19,12 @@ class _TeamSelectionState extends State<TeamSelection> {
   Color _cardColor1 = Colors.white;
   Color _cardColor2 = Colors.white;
 
-
-  void onSaved(){
-
-    UpdateMutation("team1",_team1Controller.text);
-    UpdateMutation("team2",_team2Controller.text);
-
+  void onSaved() {
+    UpdateMutation("team1", _team1Controller.text);
+    UpdateMutation("team2", _team2Controller.text);
 
     Navigator.of(context).pushNamed(TossScreen.route);
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +32,9 @@ class _TeamSelectionState extends State<TeamSelection> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("Select Your Team")),
+        title: Center(
+          child: Text("Select Your Team"),
+        ),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -51,9 +47,10 @@ class _TeamSelectionState extends State<TeamSelection> {
                 children: [
                   InkWell(
                     onTap: () {
-                      UpdateMutation("over",1);
-                      _cardColor1 =
-                          _cardColor1 == Colors.blue ? Colors.white : Colors.blue;
+                      UpdateMutation("over", 0.6);
+                      _cardColor1 = _cardColor1 == Colors.blue
+                          ? Colors.white
+                          : Colors.blue;
                       setState(() {});
                     },
                     child: Padding(
@@ -74,9 +71,10 @@ class _TeamSelectionState extends State<TeamSelection> {
                   ),
                   InkWell(
                     onTap: () {
-                      UpdateMutation("over",2);
-                      _cardColor2 =
-                          _cardColor2 == Colors.blue ? Colors.white : Colors.blue;
+                      UpdateMutation("over", 1.6);
+                      _cardColor2 = _cardColor2 == Colors.blue
+                          ? Colors.white
+                          : Colors.blue;
                       setState(() {});
                     },
                     child: Padding(
@@ -103,8 +101,6 @@ class _TeamSelectionState extends State<TeamSelection> {
                   label: Text("Team A"),
                   hintText: "Enter team name",
                 ),
-
-
               ),
               SizedBox(
                 height: 10,
@@ -115,7 +111,6 @@ class _TeamSelectionState extends State<TeamSelection> {
                   label: Text("Team B"),
                   hintText: "Enter team name",
                 ),
-
               ),
               SizedBox(
                 height: 20,

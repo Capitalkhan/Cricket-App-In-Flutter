@@ -5,8 +5,12 @@ import 'package:velocity_x/velocity_x.dart';
 class TeamsModel{
 
   // final List teams = [];
+  double over = 0;
+  int out = 0;
+  int target = 0;
 
-  final Map<String, dynamic> info = {
+
+  Map<String, dynamic> info = {
    "over" : 0.0,
    "team1" : "",
    "team2" : "",
@@ -56,31 +60,68 @@ class UpdateMutation extends VxMutation<MyStore> {
   }
 
 }
-/*class UpdateBall extends VxMutation<MyStore> {
-
-  final String key;
-  final dynamic val;
-
-  UpdateBall(this.key,this.val);
-
-  @override
-  perform() {
-    store?.teams.ballingTracker.update(key, (value) => value = val);
-  }
-
-}*/
 class AddTotalMutation extends VxMutation<MyStore> {
 
   final int num;
-
   AddTotalMutation(this.num);
 
   @override
   perform() {
     int total = store?.teams.info['total'];
+
     store?.teams.info.update("total", (value) => value = total+num);
+
   }
 }
+
+class UpdateOverMutation extends VxMutation<MyStore> {
+  final double x;
+
+  UpdateOverMutation(this.x);
+  @override
+  perform() {
+    if(store?.teams.over == 0.6){
+      store?.teams.over = 1;
+    }
+    if(store?.teams.info['over'] <= store?.teams.over){
+      store?.teams.target = store?.teams.info['total'];
+      ResetMutation();
+    }
+
+    store?.teams.over += x;
+  }
+
+}
+class UpdateOutMutation extends VxMutation<MyStore> {
+  final int x;
+
+  UpdateOutMutation(this.x);
+  @override
+  perform() {
+
+    store?.teams.out += x;
+  }
+
+}
+class JustUpdateMutation extends VxMutation<MyStore> {
+
+  @override
+  perform() {
+  }
+
+}
+class ResetMutation extends VxMutation<MyStore> {
+
+  @override
+  perform() {
+    store?.teams.info['total'] = 0;
+    store?.teams.over = 0;
+    store?.teams.out = 0;
+  }
+
+}
+
+
 
 
 

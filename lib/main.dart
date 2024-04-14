@@ -1,4 +1,5 @@
 import 'package:add_drop_product/Screen/play_screen.dart';
+import 'package:add_drop_product/Screen/status.dart';
 import 'package:add_drop_product/provider/team.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         '/': (ctx) => TeamSelection(),
         TossScreen.route: (ctx) => TossScreen(),
         PlayScreen.route: (ctx) => PlayScreen(),
+        StatusGame.route: (ctx) => StatusGame(),
       },
     );
   }
