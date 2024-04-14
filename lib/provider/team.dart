@@ -67,10 +67,15 @@ class AddTotalMutation extends VxMutation<MyStore> {
 
   @override
   perform() {
+
     int total = store?.teams.info['total'];
 
     store?.teams.info.update("total", (value) => value = total+num);
 
+    if(store?.teams.info['over'] == store?.teams.over){
+      store?.teams.target = store?.teams.info['total'];
+      ResetMutation();
+    }
   }
 }
 
@@ -80,15 +85,16 @@ class UpdateOverMutation extends VxMutation<MyStore> {
   UpdateOverMutation(this.x);
   @override
   perform() {
+
+
     if(store?.teams.over == 0.6){
       store?.teams.over = 1;
     }
-    if(store?.teams.info['over'] <= store?.teams.over){
+    store?.teams.over += x;
+    if(store?.teams.info['over'] == store?.teams.over){
       store?.teams.target = store?.teams.info['total'];
       ResetMutation();
     }
-
-    store?.teams.over += x;
   }
 
 }
@@ -98,8 +104,12 @@ class UpdateOutMutation extends VxMutation<MyStore> {
   UpdateOutMutation(this.x);
   @override
   perform() {
-
     store?.teams.out += x;
+    if(store?.teams.info['over'] == store?.teams.over){
+      store?.teams.target = store?.teams.info['total'];
+      ResetMutation();
+
+    }
   }
 
 }
