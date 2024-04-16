@@ -18,50 +18,56 @@ class PlayScreen extends StatelessWidget {
     final TeamsModel teams = (VxState.store as MyStore).teams;
 
     return Scaffold(
-        appBar: AppBar(
-          title: Center(
-            child: Text("Play"),
-          ),
+      appBar: AppBar(
+        title: Center(
+          child: Text("Play"),
         ),
-        body: Column(
-          children: [
-            teams.info["bat"] % 2 == 0
-                ? Text("${teams.info['team1']} Batting")
-                : Text("${teams.info["team2"]} Batting"),
-            VxBuilder(
-              mutations: {
-                AddTotalMutation,
-                UpdateOutMutation,
-                UpdateOverMutation
-              },
-              builder: (context, dynamic, _) => MatchTitleBar(),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            VxBuilder(
-              builder: (context, dynamic, _) => TargetWidget(),
-              mutations: {ResetMutation},
-            ),
-            Padding(
+      ),
+      body: Column(
+        children: <Widget>[
+          teams.info["bat"] % 2 == 0
+              ? Text("${teams.info['team1']} Batting")
+              : Text("${teams.info["team2"]} Batting"),
+          VxBuilder(
+            mutations: {
+              AddTotalMutation,
+              UpdateOutMutation,
+              UpdateOverMutation
+            },
+            builder: (context, dynamic, _) => MatchTitleBar(),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          VxBuilder(
+            builder: (context, dynamic, _) => TargetWidget(),
+            mutations: {ResetMutation},
+          ),
+          VxBuilder(
+            mutations: {},
+            builder: (context, dynamic, _) => Padding(
               padding: EdgeInsets.all(13),
-              child: GridView.builder(
-                itemCount: 8,
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 7,
-                  childAspectRatio: 1,
-                ),
-                itemBuilder: (context, index) {
-                  return PlayCard();
-                },
-              ),
-            )
-          ],
-        ));
+              child: teams.winnerChoser()
+                  ? Winner()
+                  : GridView.builder(
+                      itemCount: 8,
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 7,
+                        childAspectRatio: 1,
+                      ),
+                      itemBuilder: (context, index) {
+                        return PlayCard();
+                      },
+                    ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
 

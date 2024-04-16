@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:add_drop_product/Screen/chasing_team.dart';
 import 'package:add_drop_product/Screen/status.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,9 +52,6 @@ class PlayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return VxBuilder(
       mutations: {
         AddTotalMutation,
@@ -62,7 +60,15 @@ class PlayCard extends StatelessWidget {
         JustUpdateMutation
       },
       builder: (context, __, _) => InkWell(
-        onTap: () => activity(),
+        onTap: () {
+          final TeamsModel teams = (VxState.store as MyStore).teams;
+
+          if(teams.target != 0){
+            Navigator.of(context).pushNamed(ChasingTeam.route);
+          }
+          activity();
+
+        },
         child: Container(
           height: 120,
           width: 100,

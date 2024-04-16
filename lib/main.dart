@@ -1,3 +1,4 @@
+import 'package:add_drop_product/Screen/chasing_team.dart';
 import 'package:add_drop_product/Screen/play_screen.dart';
 import 'package:add_drop_product/Screen/status.dart';
 import 'package:add_drop_product/provider/team.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         TossScreen.route: (ctx) => TossScreen(),
         PlayScreen.route: (ctx) => PlayScreen(),
         StatusGame.route: (ctx) => StatusGame(),
+        ChasingTeam.route: (ctx) => ChasingTeam(),
       },
     );
   }
