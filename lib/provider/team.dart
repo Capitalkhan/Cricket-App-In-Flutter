@@ -70,9 +70,8 @@ class UpdateOverMutation extends VxMutation<MyStore> {
     }
     store?.teams.over += x;
     if (store?.teams.target == 0) {
-      if (store?.teams.info['over'].toString() == store?.teams.over.toStringAsFixed(1)) {
+      if (store?.teams.info['over'].toString() == store?.teams.over.toStringAsFixed(1).toString()) {
         store?.teams.target = store?.teams.info['total'];
-        ResetMutation();
       }
     }
   }

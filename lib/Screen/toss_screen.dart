@@ -17,7 +17,6 @@ class TossScreen extends StatelessWidget {
   void randomNum() {
     num = Random().nextInt(100);
     UpdateMutation("bat", num);
-
     if (num! % 2 == 0) {
       toss = "${teams.info["team1"].toString()} Win The Toss";
     } else {

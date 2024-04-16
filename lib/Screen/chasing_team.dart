@@ -42,9 +42,7 @@ class ChasingTeam extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.all(13),
-            child: teams.winnerChoser()
-                ? Winner()
-                : GridView.builder(
+            child: GridView.builder(
               itemCount: 8,
               scrollDirection: Axis.vertical,
               shrinkWrap: true,

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:add_drop_product/Screen/status.dart';
 import 'package:add_drop_product/core/store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,27 +42,22 @@ class PlayScreen extends StatelessWidget {
             builder: (context, dynamic, _) => TargetWidget(),
             mutations: {ResetMutation},
           ),
-          VxBuilder(
-            mutations: {},
-            builder: (context, dynamic, _) => Padding(
-              padding: EdgeInsets.all(13),
-              child: teams.winnerChoser()
-                  ? Winner()
-                  : GridView.builder(
-                      itemCount: 8,
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 8,
-                        crossAxisSpacing: 7,
-                        childAspectRatio: 1,
-                      ),
-                      itemBuilder: (context, index) {
-                        return PlayCard();
-                      },
+          Padding(
+            padding: EdgeInsets.all(13),
+            child: GridView.builder(
+                    itemCount: 8,
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 7,
+                      childAspectRatio: 1,
                     ),
-            ),
+                    itemBuilder: (context, index) {
+                      return PlayCard();
+                    },
+                  ),
           )
         ],
       ),
@@ -71,15 +65,7 @@ class PlayScreen extends StatelessWidget {
   }
 }
 
-class Winner extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final TeamsModel teams = (VxState.store as MyStore).teams;
-    return teams.info['total'] >= teams.target
-        ? "${teams.info['team1']} Won the Match".text.make()
-        : "${teams.info['team2']} Won the Match".text.make();
-  }
-}
+
 
 class TargetWidget extends StatelessWidget {
   @override

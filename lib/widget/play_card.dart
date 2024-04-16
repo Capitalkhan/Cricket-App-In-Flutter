@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:add_drop_product/Screen/chasing_team.dart';
-import 'package:add_drop_product/Screen/status.dart';
+import 'package:add_drop_product/Screen/win_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -62,12 +62,17 @@ class PlayCard extends StatelessWidget {
       builder: (context, __, _) => InkWell(
         onTap: () {
           final TeamsModel teams = (VxState.store as MyStore).teams;
-
-          if(teams.target != 0){
-            Navigator.of(context).pushNamed(ChasingTeam.route);
-          }
           activity();
+          if (teams.target != 0) {
 
+            if(teams.target <= teams.info["total"] || teams.info['over'] == teams.over){
+              Navigator.of(context).pushNamed(WinScreen.route);
+            }
+            if (teams.flag && teams.info['over'].toString() == teams.over.toStringAsFixed(1).toString()) {
+              ResetMutation();
+              Navigator.of(context).pushNamed(ChasingTeam.route);
+            }
+          }
         },
         child: Container(
           height: 120,
