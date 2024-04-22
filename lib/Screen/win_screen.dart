@@ -19,40 +19,34 @@ class WinScreen extends StatelessWidget {
         appBar: AppBar(
           title: "Match Summary".text.make().centered(),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              GridView(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 3 / 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                children: [
-                  SingleChildScrollView(child: DisplaySummary(teams.team1Summary, teams.info['team1'])),
-                  SingleChildScrollView(child: DisplaySummary(teams.team1Summary, teams.info['team1'])),
-                ],
-              ),
-              
-              if (teams.info['total'] != teams.target)
-                teams.info['total'] < teams.target && teams.info['bat'] % 2 == 0
-                    ? "${teams.info['team1']} Won the Match"
-                        .text
-                        .xl4
-                        .make()
-                        .centered()
-                    : "${teams.info['team2']} Won the Match"
-                        .text
-                        .xl4
-                        .make()
-                        .centered(),
-              if (teams.info['total'] == teams.target)
-                "match tied".text.xl.make().centered(),
-            ],
-          ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (teams.info['total'] != teams.target)
+              teams.info['total'] < teams.target && teams.info['bat'] % 2 == 0
+                  ? "${teams.info['team1']} Won the Match"
+                      .text
+                      .xl4.bold.color(Colors.white)
+                      .make()
+                      .centered()
+                  : "${teams.info['team2']} Won the Match"
+                      .text
+                      .xl4.bold.color(Colors.white)
+                      .make()
+                      .centered(),
+            if (teams.info['total'] == teams.target)
+              "match tied".text.xl.make().centered(),
+            SizedBox(height: 50,),
+            "Ball By Ball Summary".text.xl.bold.make(),
+            Row(
+              children: [
+                DisplaySummary(teams.team1Summary, teams.info['team1'],
+                    teams.target.toString()),
+                DisplaySummary(teams.team2Summary, teams.info['team2'],
+                    teams.info['total'].toString()),
+              ],
+            ),
+          ],
         ));
   }
 }
@@ -60,19 +54,44 @@ class WinScreen extends StatelessWidget {
 class DisplaySummary extends StatelessWidget {
   String team;
   List<String> list;
-  DisplaySummary(this.list, this.team);
+  String total;
+  DisplaySummary(this.list, this.team, this.total);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListView.builder(
-          itemBuilder: (ctx, index) {
-            return "{$list[index]}".text.make();
-          },
-          itemCount: list.length,
-        ),
-      ],
+    return Expanded(
+      child: Column(
+        children: [
+          Divider(),
+          "$team".text.xl2.bold.make(),
+          SizedBox(
+            height: 10,
+          ),
+          SingleChildScrollView(
+            child: Card(
+              elevation: 20,
+              child: Container(
+                height: 200,
+                width: 100,
+                decoration: const BoxDecoration(
+                    color: Colors.white10, shape: BoxShape.rectangle),
+                child: ListView.builder(
+                  itemBuilder: (ctx, index) {
+                    return "${list[index]}".text.xl.make().centered();
+                  },
+                  itemCount: list.length,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          "Total Runs: $total".text.xl2.bold.make(),
+          Divider(),
+        ],
+      ),
     );
   }
 }
+

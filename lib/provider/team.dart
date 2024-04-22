@@ -32,9 +32,11 @@ class AddInSummary extends VxMutation<MyStore> {
   @override
   perform() {
 
-    if(store!.teams.info['bat'] % 2 == 0){
+    if(store!.teams.flag == true){
+      print("team1");
       store!.teams.team1Summary.add(val);
     }else{
+      print("team2");
       store!.teams.team2Summary.add(val);
     }
   }
