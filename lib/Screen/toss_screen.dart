@@ -27,6 +27,7 @@ class TossScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         title: Center(
           child: Text("Toss Time"),
@@ -41,21 +42,23 @@ class TossScreen extends StatelessWidget {
               height: 40,
             ),
             InkWell(
-              splashColor: Colors.white,
+              splashColor: Colors.red,
               onTap: () => randomNum(),
               child: Center(
-                child: Container(
-                  height: 80,
-                  width: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(80),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Toss",
-                      style: TextStyle(color: Colors.white),
+                child: Card(
+
+                  color: Colors.red,
+                  elevation: 29,
+                  child: Container(
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(80),
                     ),
+                    child: Center(
+                      child: "Toss".text.xl2.color(Colors.black87).bold.make(),
+                      ),
                   ),
                 ),
               ),
@@ -68,7 +71,7 @@ class TossScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: Card(
-                    elevation: 10,
+                    elevation: 20,
                     color: Colors.cyanAccent,
                     child: Container(
                       height: 50,
@@ -76,16 +79,16 @@ class TossScreen extends StatelessWidget {
                         child: Text(
                           teams.info["team1"].toString(),
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
+                              fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Text("VS"),
+                "VS".text.xl.bold.make(),
                 Expanded(
                   child: Card(
-                    elevation: 10,
+                    elevation: 20,
                     color: Colors.cyanAccent,
                     child: Container(
                       height: 50,
@@ -93,7 +96,7 @@ class TossScreen extends StatelessWidget {
                         child: Text(
                           teams.info["team2"].toString(),
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
+                              fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                       ),
                     ),
@@ -102,24 +105,25 @@ class TossScreen extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 30,
+              height: 35,
             ),
             VxConsumer(
               notifications: {},
               mutations: {UpdateMutation},
               builder: (context, dynamic, _) => Text(
                 toss,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
               ),
             ),
             SizedBox(
               height: 20,
             ),
             ElevatedButton(
+              style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => Colors.red)),
               onPressed: () {
-                Navigator.of(context).pushNamed(PlayScreen.route);
+                Navigator.of(context).popAndPushNamed(PlayScreen.route);
               },
-              child: Text("Proceed"),
+              child: "Proceed".text.xl.color(Colors.black87).bold.make(),
             )
           ],
         ),

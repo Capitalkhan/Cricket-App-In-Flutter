@@ -21,8 +21,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+
+        primaryColor: Colors.cyan,
+
+        appBarTheme: const AppBarTheme(
+          color: Colors.red,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+      ),
       routes: {
         '/': (ctx) => TeamSelection(),
+        TeamSelection.route: (ctx) => TeamSelection(),
         TossScreen.route: (ctx) => TossScreen(),
         PlayScreen.route: (ctx) => PlayScreen(),
         ChasingTeam.route: (ctx) => ChasingTeam(),

@@ -6,6 +6,7 @@ import '../core/store.dart';
 import '../provider/team.dart';
 
 class TeamSelection extends StatefulWidget {
+  static final route = "./selectTeam";
   @override
   State<TeamSelection> createState() => _TeamSelectionState();
 }
@@ -23,7 +24,7 @@ class _TeamSelectionState extends State<TeamSelection> {
     UpdateMutation("team1", _team1Controller.text);
     UpdateMutation("team2", _team2Controller.text);
 
-    Navigator.of(context).pushNamed(TossScreen.route);
+    Navigator.of(context).popAndPushNamed(TossScreen.route);
   }
 
   @override
@@ -31,6 +32,7 @@ class _TeamSelectionState extends State<TeamSelection> {
     final TeamsModel teams = (VxState.store as MyStore).teams;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         title: Center(
           child: Text("Select Your Team"),
@@ -41,7 +43,10 @@ class _TeamSelectionState extends State<TeamSelection> {
           key: _key,
           child: Column(
             children: [
-              Text("Select Overs"),
+              SizedBox(
+                height: 20,
+              ),
+              "Select Overs".text.xl3.bold.make(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -50,7 +55,7 @@ class _TeamSelectionState extends State<TeamSelection> {
                       UpdateMutation("over", 0.6);
                       _cardColor1 = _cardColor1 == Colors.blue
                           ? Colors.white
-                          : Colors.blue;
+                          : Colors.yellow;
                       setState(() {});
                     },
                     child: Padding(
@@ -61,7 +66,13 @@ class _TeamSelectionState extends State<TeamSelection> {
                         child: Container(
                           height: 30,
                           width: 30,
-                          child: Center(child: Text("1")),
+                          child: Center(
+                            child: Text(
+                              "1",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -74,7 +85,7 @@ class _TeamSelectionState extends State<TeamSelection> {
                       UpdateMutation("over", 1.6);
                       _cardColor2 = _cardColor2 == Colors.blue
                           ? Colors.white
-                          : Colors.blue;
+                          : Colors.yellow;
                       setState(() {});
                     },
                     child: Padding(
@@ -85,7 +96,8 @@ class _TeamSelectionState extends State<TeamSelection> {
                         child: Container(
                           height: 30,
                           width: 30,
-                          child: Center(child: Text("2")),
+                          child: Center(child: Text("2",style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),)),
                         ),
                       ),
                     ),
@@ -98,7 +110,7 @@ class _TeamSelectionState extends State<TeamSelection> {
               TextFormField(
                 controller: _team1Controller,
                 decoration: InputDecoration(
-                  label: Text("Team A"),
+                  label: "Team A".text.xl.bold.color(Colors.black87).make(),
                   hintText: "Enter team name",
                 ),
               ),
@@ -108,16 +120,18 @@ class _TeamSelectionState extends State<TeamSelection> {
               TextFormField(
                 controller: _team2Controller,
                 decoration: InputDecoration(
-                  label: Text("Team B"),
+                  label: "Team A".text.xl.bold.color(Colors.black87).make(),
                   hintText: "Enter team name",
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 40,
               ),
               ElevatedButton(
+
+                style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => Colors.red)),
                 onPressed: () => onSaved(),
-                child: Text("Proceed"),
+                child: "Proceed".text.xl2.color(Colors.black87).bold.make(),
               )
             ],
           ),

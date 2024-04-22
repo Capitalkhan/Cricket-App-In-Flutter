@@ -15,16 +15,19 @@ class ChasingTeam extends StatelessWidget {
     final TeamsModel teams = (VxState.store as MyStore).teams;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         title: Center(
-          child: Text("Play"),
+          child: Text("Second Inning"),
         ),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           teams.info["bat"] % 2 == 1
-              ? Text("${teams.info['team1']} Batting")
-              : Text("${teams.info["team2"]} Batting"),
+              ? "${teams.info['team1']} Batting".text.xl2.bold.make()
+              : "${teams.info["team2"]} Batting".text.xl2.bold.make(),
+          SizedBox(height: 18,),
           VxBuilder(
             mutations: {
               AddTotalMutation,
@@ -34,7 +37,7 @@ class ChasingTeam extends StatelessWidget {
             builder: (context, dynamic, _) => MatchTitleBar(),
           ),
           SizedBox(
-            height: 20,
+            height: 15,
           ),
           VxBuilder(
             builder: (context, dynamic, _) => TargetWidget(),

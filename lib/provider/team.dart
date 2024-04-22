@@ -1,9 +1,7 @@
 import 'package:add_drop_product/core/store.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class TeamsModel {
-  // final List teams = [];
   double over = 0;
   int out = 0;
   int target = 0;
@@ -16,16 +14,9 @@ class TeamsModel {
     "bat": 0,
     "total": 0,
   };
-// Map<String, dynamic> ballingTracker = {
-//    "1" : 0,
-//    "2" : 0,
-//    "3" : 0,
-//    "4" : 0,
-//    "6" : 0,
-//    "wide" : "",
-//    "noBall" : "",
-//    "bit" : "",
-  // };
+
+  List<String> team1Summary = [];
+  List<String> team2Summary = [];
 
   bool winnerChoser() {
     if (target != 0 && (info['total'] > target || info['over'] == over)) {
@@ -33,6 +24,21 @@ class TeamsModel {
     }
     return false;
   }
+}
+
+class AddInSummary extends VxMutation<MyStore> {
+  String val;
+  AddInSummary(this.val);
+  @override
+  perform() {
+
+    if(store!.teams.info['bat'] % 2 == 0){
+      store!.teams.team1Summary.add(val);
+    }else{
+      store!.teams.team2Summary.add(val);
+    }
+  }
+
 }
 
 class UpdateMutation extends VxMutation<MyStore> {
@@ -94,7 +100,11 @@ class UpdateOutMutation extends VxMutation<MyStore> {
   UpdateOutMutation(this.x);
   @override
   perform() {
-    store?.teams.out += x;
+    if(store?.teams.out == 4){
+      store?.teams.over == store?.teams.info['over'];
+    }else{
+      store?.teams.out += x;
+    }
   }
 }
 
