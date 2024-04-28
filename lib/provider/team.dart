@@ -18,12 +18,12 @@ class TeamsModel {
   List<String> team1Summary = [];
   List<String> team2Summary = [];
 
-  bool winnerChoser() {
+  /*bool winnerChoser() {
     if (target != 0 && (info['total'] > target || info['over'] == over)) {
       return true;
     }
     return false;
-  }
+  }*/
 }
 
 class AddInSummary extends VxMutation<MyStore> {
@@ -33,10 +33,8 @@ class AddInSummary extends VxMutation<MyStore> {
   perform() {
 
     if(store!.teams.flag == true){
-      print("team1");
       store!.teams.team1Summary.add(val);
     }else{
-      print("team2");
       store!.teams.team2Summary.add(val);
     }
   }
@@ -102,7 +100,7 @@ class UpdateOutMutation extends VxMutation<MyStore> {
   UpdateOutMutation(this.x);
   @override
   perform() {
-    if(store?.teams.out == 4){
+    if(store?.teams.out == 5){
       store?.teams.over == store?.teams.info['over'];
     }else{
       store?.teams.out += x;

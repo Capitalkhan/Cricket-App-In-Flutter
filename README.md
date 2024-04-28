@@ -1,4 +1,4 @@
-# add_drop_product
+# cricket_app
 
 A new Flutter project.
 

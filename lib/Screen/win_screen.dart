@@ -1,6 +1,7 @@
 import 'package:add_drop_product/Screen/team_select_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -24,26 +25,32 @@ class WinScreen extends StatelessWidget {
           children: [
             if (teams.info['total'] != teams.target)
               teams.info['total'] < teams.target && teams.info['bat'] % 2 == 0
-                  ? "${teams.info['team1']} Won the Match"
-                      .text
-                      .xl4.bold.color(Colors.white)
-                      .make()
-                      .centered()
-                  : "${teams.info['team2']} Won the Match"
-                      .text
-                      .xl4.bold.color(Colors.white)
-                      .make()
-                      .centered(),
+                  ? "${teams.info['team1']} Won the Match".text.xl3.bold.color(Colors.greenAccent).make().centered()
+                  : "${teams.info['team2']} Won the Match".text.xl3.bold.color(Colors.greenAccent).make().centered(),
             if (teams.info['total'] == teams.target)
               "match tied".text.xl.make().centered(),
-            SizedBox(height: 50,),
+            SizedBox(
+              height: 50,
+            ),
             "Ball By Ball Summary".text.xl.bold.make(),
             Row(
               children: [
-                DisplaySummary(teams.team1Summary, teams.info['team1'],
-                    teams.target.toString()),
-                DisplaySummary(teams.team2Summary, teams.info['team2'],
-                    teams.info['total'].toString()),
+                DisplaySummary(
+                    teams.info['bat'] % 2 == 0
+                        ? teams.team1Summary
+                        : teams.team2Summary,
+                    teams.info['team1'],
+                    teams.info['bat'] % 2 == 0
+                        ? teams.target.toString()
+                        : teams.info['total'].toString()),
+                DisplaySummary(
+                    teams.info['bat'] % 2 == 1
+                        ? teams.team1Summary
+                        : teams.team2Summary,
+                    teams.info['team2'],
+                    teams.info['bat'] % 2 == 0
+                        ? teams.info['total'].toString()
+                        : teams.target.toString()),
               ],
             ),
           ],
@@ -69,15 +76,17 @@ class DisplaySummary extends StatelessWidget {
           ),
           SingleChildScrollView(
             child: Card(
-              elevation: 20,
+              elevation: 5,
               child: Container(
                 height: 200,
                 width: 100,
-                decoration: const BoxDecoration(
-                    color: Colors.white10, shape: BoxShape.rectangle),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.black,
+                    shape: BoxShape.rectangle),
                 child: ListView.builder(
                   itemBuilder: (ctx, index) {
-                    return "${list[index]}".text.xl.make().centered();
+                    return "${list[index]}".text.xl.color(Colors.white).make().centered();
                   },
                   itemCount: list.length,
                 ),
@@ -94,4 +103,3 @@ class DisplaySummary extends StatelessWidget {
     );
   }
 }
-

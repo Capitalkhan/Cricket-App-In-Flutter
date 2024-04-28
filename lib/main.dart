@@ -23,10 +23,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
 
-        primaryColor: Colors.cyan,
+        primaryColor: Colors.white,
 
         appBarTheme: const AppBarTheme(
-          color: Colors.red,
+          color: Colors.brown,
           titleTextStyle: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,

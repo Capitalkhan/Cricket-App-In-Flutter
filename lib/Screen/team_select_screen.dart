@@ -17,8 +17,8 @@ class _TeamSelectionState extends State<TeamSelection> {
 
   final _key = GlobalKey<FormState>();
 
-  Color _cardColor1 = Colors.white;
-  Color _cardColor2 = Colors.white;
+  bool flag1 = true;
+  bool flag2 = true;
 
   void onSaved() {
     UpdateMutation("team1", _team1Controller.text);
@@ -47,61 +47,49 @@ class _TeamSelectionState extends State<TeamSelection> {
                 height: 20,
               ),
               "Select Overs".text.xl3.bold.make(),
+              SizedBox(height: 30,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  InkWell(
-                    onTap: () {
+                  "1".text.xl.bold.make(),
+                  SizedBox(
+                    width: 110,
+                  ),
+                  "2".text.xl.bold.make(),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                  onPressed: () {
                       UpdateMutation("over", 0.6);
-                      _cardColor1 = _cardColor1 == Colors.blue
-                          ? Colors.white
-                          : Colors.yellow;
-                      setState(() {});
+
+                      setState(() {
+                        if(flag2){
+                          flag1 = !flag1;
+                        }
+                      });
                     },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Card(
-                        color: _cardColor1,
-                        elevation: 10,
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          child: Center(
-                            child: Text(
-                              "1",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    child: flag1 ?Icon(Icons.circle_outlined,color: Colors.brown,size: 30,):
+                    Icon(Icons.circle,color: Colors.greenAccent,size: 30,)
                   ),
                   SizedBox(
                     width: 50,
                   ),
-                  InkWell(
-                    onTap: () {
-                      UpdateMutation("over", 1.6);
-                      _cardColor2 = _cardColor2 == Colors.blue
-                          ? Colors.white
-                          : Colors.yellow;
-                      setState(() {});
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Card(
-                        color: _cardColor2,
-                        elevation: 10,
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          child: Center(child: Text("2",style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold),)),
-                        ),
-                      ),
-                    ),
+                  TextButton(
+                      onPressed: () {
+                        UpdateMutation("over", 1.6);
+                        setState(() {
+                          if(flag1){
+                            flag2 = !flag2;
+                          }
+                        });
+                      },
+                      child: flag2 ?Icon(Icons.circle_outlined,color: Colors.brown,size: 30,):
+                      Icon(Icons.circle,color: Colors.greenAccent,size: 30,)
                   ),
+
                 ],
               ),
               SizedBox(
@@ -129,9 +117,9 @@ class _TeamSelectionState extends State<TeamSelection> {
               ),
               ElevatedButton(
 
-                style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => Colors.red)),
+                style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => Colors.greenAccent)),
                 onPressed: () => onSaved(),
-                child: "Proceed".text.xl2.color(Colors.black87).bold.make(),
+                child: "Proceed".text.xl2.color(Colors.black).bold.make(),
               )
             ],
           ),

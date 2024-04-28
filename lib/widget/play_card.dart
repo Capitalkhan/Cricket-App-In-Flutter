@@ -71,10 +71,10 @@ class PlayCard extends StatelessWidget {
 
           if (teams.target != 0) {
 
-            if(teams.target < teams.info["total"] || teams.info['over'] <= teams.over){
+            if(teams.target < teams.info["total"] || teams.info['over'] <= teams.over || teams.out == 5){
               Navigator.of(context).popAndPushNamed(WinScreen.route);
             }
-            if (teams.flag && teams.info['over'].toString() == teams.over.toStringAsFixed(1).toString()) {
+            if ((teams.flag && teams.info['over'].toString() == teams.over.toStringAsFixed(1).toString()) || teams.out == 5) {
               ResetMutation();
               Navigator.of(context).popAndPushNamed(ChasingTeam.route);
             }
